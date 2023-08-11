@@ -1,0 +1,29 @@
+@import 'normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Antic+Didone&family=Cinzel+Decorative&family=Italiana&family=Luxurious+Script&family=Poppins:wght@200;300;400;500;600&family=Prata&family=Roboto:wght@100;300;400;500;700&family=Space+Grotesk:wght@300;500;700&display=swap');
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+:root {
+    --tan-color: #b68d40;
+    --cream-color: #f4ebd0;
+    --charcoal-color: #122620;
+    --gold-color: #d6ad60;
+}
+html {
+    font-size: 62.5%;
+}
+html ::-webkit-scrollbar {
+    border-radius: 0;
+    height: 8px;
+    width: 8px;
+}
+html ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+}
+html ::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 0;
+}
