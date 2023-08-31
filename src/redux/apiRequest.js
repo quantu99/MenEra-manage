@@ -38,6 +38,34 @@ import {
     updateStart,
     updateSuccess,
 } from './productsSlice';
+import {
+    editOrderProcessFailed,
+    editOrderProcessStart,
+    editOrderProcessSuccess,
+    getAllOrderFailed,
+    getAllOrderStart,
+    getAllOrderSuccess,
+    getOrderDetailFailed,
+    getOrderDetailStart,
+    getOrderDetailSuccess,
+    getUserOrderFailed,
+    getUserOrderStart,
+    getUserOrderSuccess,
+    pushToHistoryFailed,
+    pushToHistoryStart,
+    pushToHistorySuccess,
+    verifyOrderFailed,
+    verifyOrderStart,
+    verifyOrderSuccess,
+} from './orderSlice';
+import {
+    getAllOrderHistoryFailed,
+    getAllOrderHistoryStart,
+    getAllOrderHistorySuccess,
+    getOrderHistoryDetailFailed,
+    getOrderHistoryDetailStart,
+    getOrderHistoryDetailSuccess,
+} from './orderHistorySlice';
 export const loginUser = async (user, dispatch, navigate) => {
     dispatch(loginStart());
     try {
@@ -163,5 +191,83 @@ export const destroyProduct = async (dispatch, id, navigate) => {
         navigate('/all-products');
     } catch (err) {
         dispatch(destroyFailed());
+    }
+};
+export const getAllOrder = async (dispatch) => {
+    dispatch(getAllOrderStart());
+    try {
+        const res = await axios.get('https://emc-api.onrender.com/v1/order');
+        dispatch(getAllOrderSuccess(res.data));
+    } catch (err) {
+        dispatch(getAllOrderFailed());
+    }
+};
+export const getOrderDetail = async (dispatch, id, navigate) => {
+    dispatch(getOrderDetailStart());
+    try {
+        const res = await axios.get('https://emc-api.onrender.com/v1/order/' + id);
+        dispatch(getOrderDetailSuccess(res.data));
+        navigate(`/orderDetail/${id}`);
+    } catch (err) {
+        dispatch(getOrderDetailFailed());
+    }
+};
+export const getUserOrder = async (dispatch, id) => {
+    dispatch(getUserOrderStart());
+    try {
+        const res = await axios.get('https://emc-api.onrender.com/v1/auth/order/' + id);
+        dispatch(getUserOrderSuccess(res.data));
+    } catch (err) {
+        dispatch(getUserOrderFailed());
+    }
+};
+export const verifyOrder = async (dispatch, id) => {
+    dispatch(verifyOrderStart());
+    try {
+        const res = await axios.put('https://emc-api.onrender.com/v1/order/verify/' + id);
+        dispatch(verifyOrderSuccess(res.data));
+    } catch (err) {
+        dispatch(verifyOrderFailed());
+    }
+};
+export const editOrderProcess = async (dispatch, id, orderProcess, navigate) => {
+    dispatch(editOrderProcessStart());
+    try {
+        const res = await axios.put('https://emc-api.onrender.com/v1/order/process/' + id, {
+            orderProcess: orderProcess,
+        });
+        dispatch(editOrderProcessSuccess(res.data));
+        navigate(`/orderDetail/${id}`);
+    } catch (err) {
+        dispatch(editOrderProcessFailed());
+    }
+};
+export const pushToHistory = async (dispatch, id, navigate) => {
+    dispatch(pushToHistoryStart());
+    try {
+        const res = await axios.put('https://emc-api.onrender.com/v1/order/order-to-history/' + id);
+        dispatch(pushToHistorySuccess(res.data));
+        navigate('/order');
+    } catch (err) {
+        dispatch(pushToHistoryFailed());
+    }
+};
+export const getAllOrderHistory = async (dispatch) => {
+    dispatch(getAllOrderHistoryStart());
+    try {
+        const res = await axios.get('https://emc-api.onrender.com/v1/order-history');
+        dispatch(getAllOrderHistorySuccess(res.data));
+    } catch (err) {
+        dispatch(getAllOrderHistoryFailed());
+    }
+};
+export const getOrderHistoryDetail = async (dispatch, id, navigate) => {
+    dispatch(getOrderHistoryDetailStart());
+    try {
+        const res = await axios.get('https://emc-api.onrender.com/v1/order-history/' + id);
+        dispatch(getOrderHistoryDetailSuccess(res.data));
+        navigate(`/order-history/${id}`);
+    } catch (err) {
+        dispatch(getOrderHistoryDetailFailed());
     }
 };

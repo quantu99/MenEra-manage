@@ -24,10 +24,14 @@ function Sidebar() {
                                 <p className={cx('list-item-para')}> See all products</p>
                             </li>
                         </Link>
-                        <li className={cx('sidebar-list-item')}>
+                        <Link
+                            style={{ textDecoration: 'none', color: 'inherit' }}
+                            to={'/order'}
+                            className={cx('sidebar-list-item')}
+                        >
                             <FontAwesomeIcon className={cx('list-item-icon')} icon={faCheck} />
                             <p className={cx('list-item-para')}> Check the orders</p>
-                        </li>
+                        </Link>
                         <Link style={{ textDecoration: 'none', color: 'inherit' }} to={'/all-users'}>
                             <li className={cx('sidebar-list-item')}>
                                 <FontAwesomeIcon className={cx('list-item-icon')} icon={faUser} />
