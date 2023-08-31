@@ -108,9 +108,9 @@ function ProductDetail() {
     return (
         <div className={cx('wrapper', 'grid')}>
             <Header />
-            <Sidebar />
+
             <div className={cx('container', 'row', 'no-gutters')}>
-                <div className={cx('product-div', 'col', 'l-10', 'l-o-2')}>
+                <div className={cx('product-div', 'col', 'l-12')}>
                     <div className={cx('image-div')}>
                         <img className={cx('image')} src={productDetail?.imageUrl} />
                         <img className={cx('image')} src={productDetail?.imageUrl2} />

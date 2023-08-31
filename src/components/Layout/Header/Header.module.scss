@@ -16,19 +16,90 @@
     color: var(--tan-color);
 }
 .hello {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.8rem;
     display: flex !important;
     justify-content: flex-end;
     align-items: flex-end;
-    flex-direction: column;
-    color: var(--gold-color);
+    position: relative;
 }
-.logout {
-    margin-top: 5px;
+.menu-icon {
+    font-size: 3rem;
+    color: var(--tan-color);
+    cursor: pointer;
+}
+.checkbox {
+    display: none;
+}
+.checkbox:checked ~ .dashboard {
+    transform: translate(0);
+}
+.checkbox:checked ~ .dashboard-no-user {
+    transform: translate(0);
+}
+.dashboard-no-user {
+    position: absolute;
+    background-color: var(--cream-color);
+    bottom: -90px;
+    font-size: 1.8rem;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px var(--charcoal-color);
+    transform: translateX(1000%);
+    transition: all 0.3s ease-out;
+    padding: 30px;
+}
+.dashboard {
+    position: absolute;
+    background-color: var(--cream-color);
+    bottom: -240px;
+    font-size: 1.8rem;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px var(--charcoal-color);
+    transform: translateX(1000%);
+    transition: all 0.3s ease-out;
+}
+.dashboard-title {
+    font-size: 2.8rem;
+    border-bottom: 1px solid var(--tan-color);
+    padding: 10px 20px;
+}
+.dashboard-content {
+    padding: 10px 20px;
+}
+.add {
+    padding-bottom: 10px;
     cursor: pointer;
     &:hover {
-        text-decoration: underline;
+        text-decoration: underline var(--tan-color);
+    }
+}
+.all-products {
+    padding-bottom: 10px;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline var(--tan-color);
+    }
+}
+.all-users {
+    padding-bottom: 10px;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline var(--tan-color);
+    }
+}
+.all-orders {
+    padding-bottom: 10px;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline var(--tan-color);
+    }
+}
+.logout {
+    border-top: 1px solid var(--tan-color);
+    padding: 10px 20px;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline var(--tan-color);
     }
 }
 // Responsive

@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createAxios } from '../../../createInstance';
 import { logoutSuccess } from '../../../redux/authSlice';
 import { logoutUser } from '../../../redux/apiRequest';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 const cx = classNames.bind(styles);
 function Header() {
     const dispatch = useDispatch();
@@ -23,12 +25,38 @@ function Header() {
                         Men's Era Manage
                     </Link>
                 </div>
-
                 <div className={cx('hello', 'col', 'l-3', 'l-o-4')}>
-                    Hi, {user?.firstname} {user?.lastname}
-                    <p onClick={handleClick} className={cx('logout')}>
-                        Log out
-                    </p>
+                    <label htmlFor="checkbox">
+                        <FontAwesomeIcon className={cx('menu-icon')} icon={faBars} />
+                    </label>
+                    <input type="checkbox" className={cx('checkbox')} id="checkbox" />
+                    {user && (
+                        <div className={cx('dashboard')}>
+                            <h1 className={cx('dashboard-title')}>Dashboard</h1>
+                            <div className={cx('dashboard-content')}>
+                                <Link to={'/add-product'} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <p className={cx('add')}>Add products</p>
+                                </Link>
+                                <Link to={'/'} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <p className={cx('all-products')}>All products</p>
+                                </Link>
+                                <Link to={'/all-users'} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <p className={cx('all-users')}>Men's Era' Users</p>
+                                </Link>
+                                <Link to={'/order'} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <p className={cx('all-orders')}>All orders</p>
+                                </Link>
+                            </div>
+                            <p onClick={handleClick} className={cx('logout')}>
+                                Log out
+                            </p>
+                        </div>
+                    )}
+                    {!user && (
+                        <div className={cx('dashboard-no-user')}>
+                            <p>Please login to continue</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

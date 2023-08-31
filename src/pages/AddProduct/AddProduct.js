@@ -82,7 +82,7 @@ function AddProduct() {
     return (
         <div className={cx('wrapper', 'grid')}>
             <Header />
-            <Sidebar />
+
             <div className={cx('container', 'row', 'no-gutters')}>
                 <div className={cx('content', 'col', 'l-4', 'l-o-4')}>
                     <h1 className={cx('title')}>Add Products</h1>

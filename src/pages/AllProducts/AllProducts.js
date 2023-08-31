@@ -43,7 +43,7 @@ function AllProducts() {
     return (
         <div className={cx('wrapper', 'grid')}>
             <Header />
-            <Sidebar />
+
             <div className={cx('container', 'row', 'no-gutters')}>
                 <h1 className={cx('title')}>All Products</h1>
                 <p style={{ fontSize: '1.6rem' }}>Number of product: {allProducts?.length}</p>

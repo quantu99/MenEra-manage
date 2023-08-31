@@ -11,9 +11,9 @@ import ProductDetail from '../pages/ProductDetail/ProductDetail';
 import UserDetail from '../pages/UserDetail/UserDetail';
 
 const publicRoutes = [
-    { path: '/', component: Home },
+    // { path: '/', component: Home },
+    { path: '/', component: AllProducts },
     { path: '/add-product', component: AddProduct },
-    { path: 'all-products', component: AllProducts },
     { path: 'all-users', component: AllUsers },
     { path: 'login', component: Login },
     { path: 'order', component: Order },

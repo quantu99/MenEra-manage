@@ -17,7 +17,6 @@ function AllUsers() {
     return (
         <div className={cx('wrapper', 'grid')}>
             <Header />
-            <Sidebar />
             <div className={cx('container', 'row', 'no-gutters')}>
                 <div className={cx('content', 'col', 'l-7', 'l-o-3')}>
                     <h1 className={cx('title')}>All Users</h1>
@@ -35,7 +34,7 @@ function AllUsers() {
                             </p>
                             <p className={cx('user-username')}>{user.username}</p>
                             <p className={cx('user-email')}>{user.email}</p>
-                            <p className={cx('user-edit')}>Edit</p>
+                            <p className={cx('user-edit')}>View</p>
                         </div>
                     ))}
                 </div>
