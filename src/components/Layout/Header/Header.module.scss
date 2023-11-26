@@ -35,6 +35,9 @@
 .checkbox:checked ~ .dashboard-no-user {
     transform: translate(0);
 }
+.checkbox:checked ~ .overlay {
+    display: block;
+}
 .dashboard-no-user {
     position: absolute;
     background-color: var(--cream-color);
@@ -46,6 +49,7 @@
     transform: translateX(1000%);
     transition: all 0.3s ease-out;
     padding: 30px;
+    z-index: 99;
 }
 .dashboard {
     position: absolute;
@@ -57,6 +61,7 @@
     box-shadow: 0px 0px 5px var(--charcoal-color);
     transform: translateX(1000%);
     transition: all 0.3s ease-out;
+    z-index: 99;
 }
 .dashboard-title {
     font-size: 2.8rem;
@@ -101,6 +106,16 @@
     &:hover {
         text-decoration: underline var(--tan-color);
     }
+}
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 98;
 }
 // Responsive
 .grid {

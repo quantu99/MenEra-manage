@@ -57,6 +57,7 @@ function Header() {
                             <p>Please login to continue</p>
                         </div>
                     )}
+                    <label htmlFor="checkbox" className={cx('overlay')}></label>
                 </div>
             </div>
         </div>

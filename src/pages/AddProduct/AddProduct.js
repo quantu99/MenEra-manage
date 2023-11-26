@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createNewProduct } from '../../redux/apiRequest';
 import validation from './validation';
 import { useNavigate } from 'react-router-dom';
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { app } from '../../firebase';
+const storage = getStorage(app);
 const cx = classNames.bind(styles);
 function AddProduct() {
     const dispatch = useDispatch();
@@ -20,6 +23,8 @@ function AddProduct() {
             navigate('/login');
         }
     });
+    const [file, setFile] = useState(null);
+    const [file2nd, setFile2nd] = useState(null);
     const [values, setValues] = useState({
         name: '',
         price: '',
@@ -29,6 +34,7 @@ function AddProduct() {
         imageUrl1: '',
         imageUrl2: '',
     });
+    console.log(values);
     const handleChange = (e) => {
         if (e.target.name === 'type') {
             const types = e.target.value.split(',');
@@ -43,6 +49,74 @@ function AddProduct() {
             });
         }
     };
+    useEffect(() => {
+        const upload = () => {
+            const name = new Date().getTime + file.name;
+            const storageRef = ref(storage, name);
+
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            uploadTask.on(
+                'state_changed',
+                (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    switch (snapshot.state) {
+                        case 'paused':
+                            console.log('Upload is paused');
+                            break;
+                        case 'running':
+                            console.log('Upload is running');
+                            break;
+                    }
+                },
+                (error) => {},
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        setValues({
+                            ...values,
+                            imageUrl1: downloadURL,
+                        });
+                    });
+                },
+            );
+        };
+        file && upload();
+    }, [file]);
+    useEffect(() => {
+        const upload = () => {
+            const name = new Date().getTime + file2nd.name;
+            const storageRef = ref(storage, name);
+
+            const uploadTask = uploadBytesResumable(storageRef, file2nd);
+
+            uploadTask.on(
+                'state_changed',
+                (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    switch (snapshot.state) {
+                        case 'paused':
+                            console.log('Upload is paused');
+                            break;
+                        case 'running':
+                            console.log('Upload is running');
+                            break;
+                    }
+                },
+                (error) => {},
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        setValues({
+                            ...values,
+                            imageUrl2: downloadURL,
+                        });
+                    });
+                },
+            );
+        };
+        file2nd && upload();
+    }, [file2nd]);
     useEffect(() => {
         const isValid =
             values.name !== '' &&
@@ -130,23 +204,23 @@ function AddProduct() {
                         <div className={cx('input-div')}>
                             <label className={cx('input-div-label')}>Product's image</label>
                             <input
-                                onChange={handleChange}
+                                onChange={(e) => setFile(e.target.files[0])}
                                 name="imageUrl1"
                                 className={cx('input')}
                                 placeholder="Image url"
+                                type="file"
                             />
                         </div>
-                        {errors.imageUrl1 && <p className={cx('error-msg')}>{errors.imageUrl1}</p>}
                         <div className={cx('input-div')}>
                             <label className={cx('input-div-label')}>Product's image bonus</label>
                             <input
-                                onChange={handleChange}
+                                type="file"
+                                onChange={(e) => setFile2nd(e.target.files[0])}
                                 name="imageUrl2"
                                 className={cx('input')}
                                 placeholder="Image url"
                             />
                         </div>
-                        {errors.imageUrl1 && <p className={cx('error-msg')}>{errors.imageUrl2}</p>}
 
                         <div className={cx('input-div')}>
                             <label className={cx('input-div-label')}>Product's description</label>

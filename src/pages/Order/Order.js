@@ -15,7 +15,6 @@ function Order() {
     const id = user?._id;
     const allOrder = useSelector((state) => state.order.getAllOrder?.allOrder);
     let orderProcess = 'order shipped';
-    const [selectedValue, setSelectedValue] = useState('');
     useEffect(() => {
         getAllOrder(dispatch);
     }, []);
@@ -52,122 +51,153 @@ function Order() {
             <div className={cx('order-div')}>
                 {allOrder && (
                     <>
-                        {allOrder?.map((order, index) => (
-                            <div
-                                onClick={() => console.log(order.orderProcess)}
-                                key={index}
-                                className={cx('container', 'row', 'no-gutters')}
-                            >
-                                <div className={cx('id-div')}>
-                                    <p className={cx('title')}>Order Id</p>
-                                    <p className={cx('order-code')}> #{order?._id}</p>
-                                </div>
-                                <div className={cx('date-div')}>
-                                    <p className={cx('title')}>At</p>
-                                    <p className={cx('order-date')}>
-                                        {order.orderDate.replace('T', ', ').slice(0, 20)}
-                                    </p>
-                                    <p className={cx('date-para')}>
-                                        This order is created at {order.orderDate.replace('T', ', ').slice(0, 20)}
-                                        <div className={cx('something')}></div>
-                                    </p>
-                                </div>
-                                <div className={cx('total-div')}>
-                                    <p className={cx('title')}>Total</p>
-                                    <p className={cx('order-total')}>
-                                        {calculateTotal(order.products).toLocaleString()}
-                                        <span style={{ textDecoration: 'underline' }}>đ</span>
-                                    </p>
-                                </div>
-                                <div className={cx('progress-div')}>
-                                    <p className={cx('title')}>Order status</p>
-                                    {!order.orderProgress && (
-                                        <>
-                                            <FontAwesomeIcon className={cx('process-icon')} icon={faGear} />
-                                            <p className={cx('process-para')}>Processing...</p>
-                                        </>
-                                    )}
-                                    {order.orderProgress && order.orderProcess === 'order processed' && (
-                                        <>
-                                            <FontAwesomeIcon className={cx('process-icon', 'icon')} icon={faCheck} />
-                                            <p className={cx('process-para')}>Processed</p>
-                                        </>
-                                    )}
-                                    {order.orderProgress && order.orderProcess === 'order shipped' && (
-                                        <>
-                                            <FontAwesomeIcon className={cx('process-icon', 'icon')} icon={faBox} />
-                                            <p className={cx('process-para')}>Order shipped</p>
-                                        </>
-                                    )}
-                                    {order.orderProgress && order.orderProcess === 'order is shipping' && (
-                                        <>
-                                            <FontAwesomeIcon
-                                                className={cx('process-icon', 'icon')}
-                                                icon={faTruckFast}
-                                            />
-                                            <p className={cx('process-para')}>Order is shipping</p>
-                                        </>
-                                    )}
-                                    {order.orderProgress && order.orderProcess === 'order arrived' && (
-                                        <>
-                                            <FontAwesomeIcon
-                                                className={cx('process-icon', 'icon')}
-                                                icon={faHouseCircleCheck}
-                                            />
-                                            <p className={cx('process-para')}>Order arrived</p>
-                                        </>
-                                    )}
-                                </div>
-                                <p className={cx('verify-div')}>
-                                    <p className={cx('title')}>Verify</p>
-                                    {!order?.orderProgress && (
-                                        <button onClick={() => handleVerifyOrder(order._id)} className={cx('btn')}>
-                                            Verify this order
-                                        </button>
-                                    )}
-                                    {order.orderProgress && (
-                                        <>
-                                            {order.orderProcess === 'order processed' && (
+                        {allOrder.length >= 1 && (
+                            <>
+                                {allOrder?.map((order, index) => (
+                                    <div
+                                        onClick={() => console.log(order.orderProcess)}
+                                        key={index}
+                                        className={cx('container', 'row', 'no-gutters')}
+                                    >
+                                        <div className={cx('id-div')}>
+                                            <p className={cx('title')}>Order Id</p>
+                                            <p className={cx('order-code')}> #{order?._id}</p>
+                                        </div>
+                                        <div className={cx('date-div')}>
+                                            <p className={cx('title')}>At</p>
+                                            <p className={cx('order-date')}>
+                                                {order.orderDate.replace('T', ', ').slice(0, 20)}
+                                            </p>
+                                            <p className={cx('date-para')}>
+                                                This order is created at{' '}
+                                                {order.orderDate.replace('T', ', ').slice(0, 20)}
+                                                <div className={cx('something')}></div>
+                                            </p>
+                                        </div>
+                                        <div className={cx('total-div')}>
+                                            <p className={cx('title')}>Total</p>
+                                            <p className={cx('order-total')}>
+                                                {calculateTotal(order.products).toLocaleString()}
+                                                <span style={{ textDecoration: 'underline' }}>đ</span>
+                                            </p>
+                                        </div>
+                                        <div className={cx('progress-div')}>
+                                            <p className={cx('title')}>Order status</p>
+                                            {!order.orderProgress && (
                                                 <>
-                                                    <select onChange={handleChange}>
-                                                        <option value={'order shipped'}>Order shipped</option>
-                                                        <option value={'order is shipping'}>Order is shipping</option>
-                                                        <option value={'order arrived'}>Order arrived</option>
-                                                    </select>
-                                                    <button onClick={() => handleClick(order._id)}>Verify</button>
+                                                    <FontAwesomeIcon className={cx('process-icon')} icon={faGear} />
+                                                    <p className={cx('process-para')}>Processing...</p>
                                                 </>
                                             )}
-                                            {order.orderProcess === 'order is shipping' && (
+                                            {order.orderProgress && order.orderProcess === 'order processed' && (
                                                 <>
-                                                    <select onChange={handleChange}>
-                                                        <option value={'order is shipping'}>Order is shipping</option>
-                                                        <option value={'order shipped'}>Order shipped</option>
-                                                        <option value={'order arrived'}>Order arrived</option>
-                                                    </select>
-                                                    <button onClick={() => handleClick(order._id)}>Verify</button>
+                                                    <FontAwesomeIcon
+                                                        className={cx('process-icon', 'icon')}
+                                                        icon={faCheck}
+                                                    />
+                                                    <p className={cx('process-para')}>Processed</p>
                                                 </>
                                             )}
-                                            {order.orderProcess === 'order arrived' && (
+                                            {order.orderProgress && order.orderProcess === 'order shipped' && (
                                                 <>
-                                                    <select onChange={handleChange}>
-                                                        <option value={'order arrived'}>Order arrived</option>
-                                                        <option value={'order is shipping'}>Order is shipping</option>
-                                                        <option value={'order shipped'}>Order shipped</option>
-                                                    </select>
-                                                    <button onClick={() => handleClick(order._id)}>Verify</button>
+                                                    <FontAwesomeIcon
+                                                        className={cx('process-icon', 'icon')}
+                                                        icon={faBox}
+                                                    />
+                                                    <p className={cx('process-para')}>Order shipped</p>
                                                 </>
                                             )}
-                                        </>
-                                    )}
-                                </p>
-                                <div className={cx('view-div')}>
-                                    <p className={cx('title')}>Detail</p>
-                                    <button onClick={() => handleGetDetail(order?._id)} className={cx('btn')}>
-                                        View
-                                    </button>
-                                </div>
+                                            {order.orderProgress && order.orderProcess === 'order is shipping' && (
+                                                <>
+                                                    <FontAwesomeIcon
+                                                        className={cx('process-icon', 'icon')}
+                                                        icon={faTruckFast}
+                                                    />
+                                                    <p className={cx('process-para')}>Order is shipping</p>
+                                                </>
+                                            )}
+                                            {order.orderProgress && order.orderProcess === 'order arrived' && (
+                                                <>
+                                                    <FontAwesomeIcon
+                                                        className={cx('process-icon', 'icon')}
+                                                        icon={faHouseCircleCheck}
+                                                    />
+                                                    <p className={cx('process-para')}>Order arrived</p>
+                                                </>
+                                            )}
+                                        </div>
+                                        <p className={cx('verify-div')}>
+                                            <p className={cx('title')}>Verify</p>
+                                            {!order?.orderProgress && (
+                                                <button
+                                                    onClick={() => handleVerifyOrder(order._id)}
+                                                    className={cx('btn')}
+                                                >
+                                                    Verify this order
+                                                </button>
+                                            )}
+                                            {order.orderProgress && (
+                                                <>
+                                                    {order.orderProcess === 'order processed' && (
+                                                        <>
+                                                            <select onChange={handleChange}>
+                                                                <option value={'order shipped'}>Order shipped</option>
+                                                                <option value={'order is shipping'}>
+                                                                    Order is shipping
+                                                                </option>
+                                                                <option value={'order arrived'}>Order arrived</option>
+                                                            </select>
+                                                            <button onClick={() => handleClick(order._id)}>
+                                                                Verify
+                                                            </button>
+                                                        </>
+                                                    )}
+                                                    {order.orderProcess === 'order is shipping' && (
+                                                        <>
+                                                            <select onChange={handleChange}>
+                                                                <option value={'order is shipping'}>
+                                                                    Order is shipping
+                                                                </option>
+                                                                <option value={'order shipped'}>Order shipped</option>
+                                                                <option value={'order arrived'}>Order arrived</option>
+                                                            </select>
+                                                            <button onClick={() => handleClick(order._id)}>
+                                                                Verify
+                                                            </button>
+                                                        </>
+                                                    )}
+                                                    {order.orderProcess === 'order arrived' && (
+                                                        <>
+                                                            <select onChange={handleChange}>
+                                                                <option value={'order arrived'}>Order arrived</option>
+                                                                <option value={'order is shipping'}>
+                                                                    Order is shipping
+                                                                </option>
+                                                                <option value={'order shipped'}>Order shipped</option>
+                                                            </select>
+                                                            <button onClick={() => handleClick(order._id)}>
+                                                                Verify
+                                                            </button>
+                                                        </>
+                                                    )}
+                                                </>
+                                            )}
+                                        </p>
+                                        <div className={cx('view-div')}>
+                                            <p className={cx('title')}>Detail</p>
+                                            <button onClick={() => handleGetDetail(order?._id)} className={cx('btn')}>
+                                                View
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </>
+                        )}
+                        {allOrder.length === 0 && (
+                            <div className={cx('container-no-order', 'row', 'no-gutters')}>
+                                <p>Order list is empty</p>
                             </div>
-                        ))}
+                        )}
                     </>
                 )}
                 {!allOrder && (

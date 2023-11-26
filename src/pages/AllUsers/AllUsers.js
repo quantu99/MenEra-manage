@@ -3,17 +3,22 @@ import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import Header from '../../components/Layout/Header/Header';
 import Sidebar from '../../components/Layout/Sidebar/Sidebar';
-import { getAllUsers } from '../../redux/apiRequest';
+import { getAllUsers, getUserDetail } from '../../redux/apiRequest';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 const cx = classNames.bind(styles);
 function AllUsers() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [currentIndex, setCurrentIndex] = useState(0);
     const allUsers = useSelector((state) => state.user.user?.allUsers);
     console.log(allUsers);
     useEffect(() => {
         getAllUsers(dispatch);
     }, []);
+    const handleClick = (id) => {
+        getUserDetail(dispatch, id, navigate);
+    };
     return (
         <div className={cx('wrapper', 'grid')}>
             <Header />
@@ -34,7 +39,9 @@ function AllUsers() {
                             </p>
                             <p className={cx('user-username')}>{user.username}</p>
                             <p className={cx('user-email')}>{user.email}</p>
-                            <p className={cx('user-edit')}>View</p>
+                            <p onClick={() => handleClick(user._id)} className={cx('user-edit')}>
+                                View
+                            </p>
                         </div>
                     ))}
                 </div>

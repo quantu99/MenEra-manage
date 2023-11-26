@@ -19,7 +19,7 @@ const publicRoutes = [
     { path: 'order', component: Order },
     { path: 'orderDetail/:id', component: OrderDetail },
     { path: '/order-history', component: OrderHistory },
-    { path: '/order-history/:id', component: OrderHistoryDetail },
+    { path: '/order-history/id', component: OrderHistoryDetail },
     { path: '/user-detail/:id', component: UserDetail },
     { path: '/:id', component: ProductDetail },
 ];

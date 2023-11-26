@@ -9,6 +9,9 @@ import {
     logoutStart,
     logoutFailed,
     logoutSuccess,
+    getMyOrderStart,
+    getMyOrderFailed,
+    getMyOrderSuccess,
 } from './authSlice';
 import {
     getAllUsersStart,
@@ -17,6 +20,9 @@ import {
     deleteUsersStart,
     deleteUsersFailed,
     deleteUsersSuccess,
+    getUserDetailStart,
+    getUserDetailFailed,
+    getUserDetailSuccess,
 } from './userSlice';
 import {
     cartFailed,
@@ -269,5 +275,24 @@ export const getOrderHistoryDetail = async (dispatch, id, navigate) => {
         navigate(`/order-history/${id}`);
     } catch (err) {
         dispatch(getOrderHistoryDetailFailed());
+    }
+};
+export const getUserDetail = async (dispatch, id, navigate) => {
+    dispatch(getUserDetailStart());
+    try {
+        const res = await axios.get('https://emc-api.onrender.com/v1/user/' + id);
+        dispatch(getUserDetailSuccess(res.data));
+        navigate(`/user-detail/${id}`);
+    } catch (err) {
+        dispatch(getUserDetailFailed());
+    }
+};
+export const getMyOrder = async (dispatch, id) => {
+    dispatch(getMyOrderStart());
+    try {
+        const res = await axios.get('https://emc-api.onrender.com/v1/auth/order/' + id);
+        dispatch(getMyOrderSuccess(res.data));
+    } catch (err) {
+        dispatch(getMyOrderFailed());
     }
 };
