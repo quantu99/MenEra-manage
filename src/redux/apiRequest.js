@@ -157,7 +157,7 @@ export const createNewProduct = async (product, dispatch, navigate) => {
     try {
         const res = await axios.post('https://emc-api.onrender.com/v1/products/create', product);
         dispatch(createSuccess(res.data));
-        navigate('/all-products');
+        navigate('/');
     } catch (err) {
         dispatch(createFailed());
     }

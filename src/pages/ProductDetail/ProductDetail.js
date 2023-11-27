@@ -53,20 +53,7 @@ function ProductDetail() {
             }));
         }
     };
-    // const handleChange = (e) => {
-    //     if (e.target.name === 'type') {
-    //         const types = e.target.value.split(',');
-    //         setValues({
-    //             ...values,
-    //             type: types,
-    //         });
-    //     } else {
-    //         setValues({
-    //             ...values,
-    //             [e.target.name]: e.target.value,
-    //         });
-    //     }
-    // };
+
     useEffect(() => {
         const isValid =
             values.name !== '' &&
@@ -216,12 +203,12 @@ function ProductDetail() {
                             <span className={cx('loading-btn-content')}>Please wait...</span>
                         </button>
                     )}
-                    <label htmlFor="checkbox">
+                    <label htmlFor="checkbox-delete">
                         <p className={cx('delete-para')}>Delete this product</p>
                     </label>
-                    <input className={cx('checkbox')} id="checkbox" type="checkbox" />
+                    <input className={cx('checkbox')} id="checkbox-delete" type="checkbox" />
                     <div className={cx('delete-div')}>
-                        <label htmlFor="checkbox">
+                        <label htmlFor="checkbox-delete">
                             <FontAwesomeIcon className={cx('delete-icon')} icon={faXmark} />
                         </label>
                         <p className={cx('delete-title')}>
